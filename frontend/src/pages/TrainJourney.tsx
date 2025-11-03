@@ -1369,8 +1369,8 @@ const TrainJourney = () => {
             animate={{ opacity: 1 }}
           >
             <div className="platform-content">
-              <motion.i
-                className="fas fa-train platform-train"
+              <motion.div
+                className="platform-train-image"
                 animate={{
                   x: [0, 10, 0],
                 }}
@@ -1379,7 +1379,12 @@ const TrainJourney = () => {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-              ></motion.i>
+              >
+                <img
+                  src="https://congdankhuyenhoc.qltns.mediacdn.vn/449484899827462144/2025/4/8/minhhoatau304-bacnamlienmotdai-1744077100665221175085.jpg"
+                  alt="Tàu Thống Nhất 30/04/1975"
+                />
+              </motion.div>
               <h3>Sân Ga Lịch Sử</h3>
               <p className="platform-intro">
                 Năm 1975, cuộc kháng chiến kết thúc. Đất nước thống nhất, nhưng
