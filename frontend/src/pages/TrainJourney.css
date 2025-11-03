@@ -2,6 +2,185 @@
   background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   min-height: 100vh;
   padding: 100px 0 50px;
+  transition: background 0.6s ease;
+}
+
+/* Ga 1975 - Thống Nhất - Hoan ca Chiến thắng */
+.train-section.station-1975 {
+  background: linear-gradient(135deg, #da251c 0%, #ffcc00 50%, #4caf50 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.train-section.station-1975::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.2) 2px,
+      transparent 2px
+    ),
+    radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 50px 50px, 30px 30px;
+  background-position: 0 0, 25px 25px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Ga 1976 - Kế hoạch hóa - Kiến thiết Mệnh lệnh */
+.train-section.station-1976 {
+  background: linear-gradient(135deg, #1a237e 0%, #546e7a 50%, #8d6e63 100%);
+  position: relative;
+}
+
+.train-section.station-1976::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Ga 1979 - Thử lửa - Khói lửa Biên giới */
+.train-section.station-1979 {
+  background: linear-gradient(135deg, #424242 0%, #8d6e63 50%, #d84315 100%);
+  position: relative;
+}
+
+.train-section.station-1979::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.1"/></svg>');
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Ga 1981 - Phá rào - Ánh sáng Đồng ruộng */
+.train-section.station-1981 {
+  background: linear-gradient(135deg, #7cb342 0%, #fdd835 50%, #8d6e63 100%);
+  position: relative;
+}
+
+.train-section.station-1981::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(
+    ellipse,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 50%
+  );
+  background-size: 80px 80px;
+  background-position: 0 0, 40px 40px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Ga 1982 - Chuyển hướng - Hội nghị Nghiêm túc */
+.train-section.station-1982 {
+  background: linear-gradient(135deg, #4e342e 0%, #558b2f 50%, #f5f5dc 100%);
+  position: relative;
+}
+
+.train-section.station-1982::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.03) 0px,
+    transparent 2px,
+    transparent 4px,
+    rgba(255, 255, 255, 0.03) 6px
+  );
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Ga 1985 - Bão táp - Khủng hoảng Lạm phát */
+.train-section.station-1985 {
+  background: linear-gradient(135deg, #c62828 0%, #6d4c41 50%, #5d4037 100%);
+  position: relative;
+}
+
+.train-section.station-1985::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.1) 10px,
+      rgba(0, 0, 0, 0.1) 20px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.08) 10px,
+      rgba(0, 0, 0, 0.08) 20px
+    );
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Ga 1986 - Bình minh Đổi mới */
+.train-section.station-1986 {
+  background: linear-gradient(135deg, #ff6f00 0%, #42a5f5 50%, #ffffff 100%);
+  position: relative;
+}
+
+.train-section.station-1986::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.1) 25%,
+      transparent 25%,
+      transparent 75%,
+      rgba(255, 255, 255, 0.1) 75%
+    ),
+    linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.1) 25%,
+      transparent 25%,
+      transparent 75%,
+      rgba(255, 255, 255, 0.1) 75%
+    );
+  background-size: 60px 60px;
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .train-section .section-title {

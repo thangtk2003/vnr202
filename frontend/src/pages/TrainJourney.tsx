@@ -1344,7 +1344,13 @@ const TrainJourney = () => {
   };
 
   return (
-    <section className="train-section">
+    <section
+      className={`train-section ${
+        currentStation >= 0 && currentStation < stations.length
+          ? `station-${stations[currentStation].year}`
+          : "station-platform-view"
+      }`}
+    >
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: -30 }}
