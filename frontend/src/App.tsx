@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import TrainJourney from "./pages/TrainJourney";
@@ -10,20 +9,6 @@ import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
-  const [geminiApiKey, setGeminiApiKey] = useState<string>("");
-
-  useEffect(() => {
-    const savedKey = localStorage.getItem("geminiApiKey");
-    if (savedKey) {
-      setGeminiApiKey(savedKey);
-    }
-  }, []);
-
-  const handleSaveApiKey = (key: string) => {
-    localStorage.setItem("geminiApiKey", key);
-    setGeminiApiKey(key);
-  };
-
   return (
     <Router>
       <div className="app">
@@ -33,15 +18,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/train" element={<TrainJourney />} />
             <Route path="/quiz" element={<Quiz />} />
-            <Route
-              path="/chatbot"
-              element={
-                <Chatbot
-                  apiKey={geminiApiKey}
-                  onSaveApiKey={handleSaveApiKey}
-                />
-              }
-            />
+            <Route path="/chatbot" element={<Chatbot />} />
             <Route path="/ai-usage" element={<AIUsage />} />
           </Routes>
         </main>

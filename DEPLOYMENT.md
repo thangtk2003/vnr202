@@ -109,6 +109,7 @@ assignment/
 ```
 
 **Giải thích:**
+
 - `buildCommand`: Lệnh build project (thêm `--legacy-peer-deps` để fix peer dependencies)
 - `outputDirectory`: Thư mục chứa build output
 - `installCommand`: Lệnh install dependencies

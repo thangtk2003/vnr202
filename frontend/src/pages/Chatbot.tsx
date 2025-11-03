@@ -3,11 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import "./Chatbot.css";
 
-interface ChatbotProps {
-  apiKey: string;
-  onSaveApiKey: (key: string) => void;
-}
-
 interface Message {
   id: number;
   text: string;
@@ -41,9 +36,8 @@ interface SpeechRecognitionInterface {
   onend: (() => void) | null;
 }
 
-const Chatbot: React.FC<ChatbotProps> = ({ apiKey, onSaveApiKey }) => {
-  const [showApiSetup, setShowApiSetup] = useState(!apiKey);
-  const [apiKeyInput, setApiKeyInput] = useState("");
+const Chatbot: React.FC = () => {
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -59,22 +53,8 @@ const Chatbot: React.FC<ChatbotProps> = ({ apiKey, onSaveApiKey }) => {
   const recognitionRef = useRef<SpeechRecognitionInterface | null>(null);
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleSaveApiKey = () => {
-    if (!apiKeyInput.trim()) {
-      alert("Vui lòng nhập API key!");
-      return;
-    }
-    onSaveApiKey(apiKeyInput);
-    setShowApiSetup(false);
-    alert("✓ API key đã được lưu thành công!");
-  };
+  }, [messages]);
 
   const sendMessage = async (text: string = inputText) => {
     if (!text.trim()) return;
@@ -213,7 +193,8 @@ Câu hỏi: ${text}`;
     }
   };
 
-  if (showApiSetup) {
+  // Validation API key
+  if (!apiKey || apiKey === "your_gemini_api_key_here") {
     return (
       <section className="chatbot-section">
         <div className="container">
@@ -227,30 +208,32 @@ Câu hỏi: ${text}`;
 
           <div className="chatbot-container">
             <div className="api-key-setup">
-              <h3>Cấu Hình Gemini API</h3>
-              <p>Vui lòng nhập API key của bạn để sử dụng tính năng Chatbot</p>
-              <div className="input-group">
-                <input
-                  type="password"
-                  placeholder="Nhập Gemini API Key..."
-                  value={apiKeyInput}
-                  onChange={(e) => setApiKeyInput(e.target.value)}
-                />
-                <button onClick={handleSaveApiKey} className="btn-primary">
-                  <i className="fas fa-save"></i> Lưu
-                </button>
-              </div>
-              <p className="help-text">
-                <i className="fas fa-info-circle"></i>
-                Lấy API key tại:{" "}
-                <a
-                  href="https://makersuite.google.com/app/apikey"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Google AI Studio
-                </a>
+              <h3>⚠️ Chưa cấu hình API Key</h3>
+              <p>
+                Để sử dụng tính năng Chatbot, bạn cần cấu hình Gemini API key.
               </p>
+              <div className="setup-steps">
+                <p>
+                  <strong>Bước 1:</strong> Lấy API key miễn phí tại:{" "}
+                  <a
+                    href="https://makersuite.google.com/app/apikey"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Google AI Studio
+                  </a>
+                </p>
+                <p>
+                  <strong>Bước 2:</strong> Tạo file <code>.env</code> trong thư
+                  mục <code>frontend/</code> với nội dung:
+                </p>
+                <pre>
+                  <code>VITE_GEMINI_API_KEY=your_api_key_here</code>
+                </pre>
+                <p>
+                  <strong>Bước 3:</strong> Khởi động lại dev server
+                </p>
+              </div>
             </div>
           </div>
         </div>
