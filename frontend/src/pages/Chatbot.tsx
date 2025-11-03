@@ -148,16 +148,22 @@ Câu hỏi: ${text}`;
     }
 
     const SpeechRecognition =
-      (window as Window & typeof globalThis & { 
-        SpeechRecognition?: new () => SpeechRecognitionInterface;
-        webkitSpeechRecognition?: new () => SpeechRecognitionInterface;
-      }).SpeechRecognition ||
-      (window as Window & typeof globalThis & { 
-        webkitSpeechRecognition?: new () => SpeechRecognitionInterface;
-      }).webkitSpeechRecognition;
-    
+      (
+        window as Window &
+          typeof globalThis & {
+            SpeechRecognition?: new () => SpeechRecognitionInterface;
+            webkitSpeechRecognition?: new () => SpeechRecognitionInterface;
+          }
+      ).SpeechRecognition ||
+      (
+        window as Window &
+          typeof globalThis & {
+            webkitSpeechRecognition?: new () => SpeechRecognitionInterface;
+          }
+      ).webkitSpeechRecognition;
+
     if (!SpeechRecognition) return;
-    
+
     recognitionRef.current = new SpeechRecognition();
 
     recognitionRef.current.lang = "vi-VN";

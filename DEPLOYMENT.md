@@ -3,10 +3,12 @@
 ## 📋 Chuẩn Bị
 
 ### 1. Tài khoản Vercel
+
 - Đăng ký tài khoản miễn phí tại: https://vercel.com/signup
 - Kết nối với GitHub account
 
 ### 2. Push code lên GitHub
+
 ```bash
 # Khởi tạo git (nếu chưa có)
 git init
@@ -128,9 +130,11 @@ assignment/
 ## 🎯 Sau Khi Deploy
 
 ### 1. Kiểm tra URL
+
 Vercel sẽ tạo URL dạng: `https://vnr202-xxx.vercel.app`
 
 ### 2. Kiểm tra các trang
+
 - ✅ Home: `/`
 - ✅ Train Journey: `/train`
 - ✅ Quiz: `/quiz`
@@ -138,6 +142,7 @@ Vercel sẽ tạo URL dạng: `https://vnr202-xxx.vercel.app`
 - ✅ AI Usage: `/ai-usage`
 
 ### 3. Test Environment Variable
+
 - Mở `/quiz`
 - Click "Tạo Quiz Mới"
 - Nếu thấy nút → ✅ API key OK
@@ -162,6 +167,7 @@ git push origin master
 ## 🐛 Xử Lý Lỗi
 
 ### Lỗi 1: "Build failed"
+
 ```bash
 # Kiểm tra build local
 cd frontend
@@ -171,16 +177,19 @@ npm run build
 ```
 
 ### Lỗi 2: "Environment variable not found"
+
 - Vào Vercel Dashboard
 - Settings → Environment Variables
 - Kiểm tra key có đúng `VITE_GEMINI_API_KEY` không
 - Redeploy: Deployments → ... → Redeploy
 
 ### Lỗi 3: "404 Not Found"
+
 - Kiểm tra `vercel.json` routes
 - Kiểm tra `vite.config.ts` base path
 
 ### Lỗi 4: "Quiz/Chatbot không hoạt động"
+
 - F12 → Console → Kiểm tra lỗi API
 - Kiểm tra API key trong env variables
 - Kiểm tra CORS settings
@@ -188,6 +197,7 @@ npm run build
 ## 📊 Performance Tips
 
 ### 1. Optimize Build
+
 ```json
 // vite.config.ts
 export default {
@@ -200,9 +210,11 @@ export default {
 ```
 
 ### 2. Enable Caching
+
 Vercel tự động cache static assets
 
 ### 3. Analytics
+
 Vercel Dashboard → Analytics → Xem traffic
 
 ## 🔒 Security Checklist
@@ -224,6 +236,7 @@ Vercel Dashboard → Analytics → Xem traffic
 ## 🎉 Hoàn Thành!
 
 Website của bạn đã live tại:
+
 ```
 https://vnr202-your-username.vercel.app
 ```

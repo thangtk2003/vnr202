@@ -334,6 +334,7 @@ vercel --prod
 ```
 
 **Xem hướng dẫn chi tiết:**
+
 - 📘 Đầy đủ: [`DEPLOYMENT.md`](./DEPLOYMENT.md)
 - ⚡ Nhanh: [`DEPLOY_QUICK.md`](./DEPLOY_QUICK.md)
 
