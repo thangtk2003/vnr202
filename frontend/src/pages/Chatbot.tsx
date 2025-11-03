@@ -48,6 +48,7 @@ const Chatbot: React.FC = () => {
   const [inputText, setInputText] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<SpeechRecognitionInterface | null>(null);
@@ -55,6 +56,46 @@ const Chatbot: React.FC = () => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  // Text-to-Speech function
+  const speakText = (text: string) => {
+    if (!("speechSynthesis" in window)) {
+      console.log("Text-to-Speech không được hỗ trợ trên trình duyệt này");
+      return;
+    }
+
+    // Dừng speech hiện tại nếu đang nói
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "vi-VN";
+    utterance.rate = 1.0; // Tốc độ nói
+    utterance.pitch = 1.0; // Cao độ giọng
+    utterance.volume = 1.0; // Âm lượng
+
+    utterance.onstart = () => {
+      setIsSpeaking(true);
+    };
+
+    utterance.onend = () => {
+      setIsSpeaking(false);
+    };
+
+    utterance.onerror = () => {
+      setIsSpeaking(false);
+      console.error("Lỗi khi phát giọng nói");
+    };
+
+    window.speechSynthesis.speak(utterance);
+  };
+
+  // Stop speaking function
+  const stopSpeaking = () => {
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
+  };
 
   const sendMessage = async (text: string = inputText) => {
     if (!text.trim()) return;
@@ -105,6 +146,9 @@ Câu hỏi: ${text}`;
       };
 
       setMessages((prev) => [...prev, botMessage]);
+
+      // Phát giọng nói phản hồi của bot
+      speakText(botResponse);
     } catch (error) {
       console.error("Error sending message:", error);
       const errorMessage: Message = {
@@ -113,6 +157,7 @@ Câu hỏi: ${text}`;
         sender: "bot",
       };
       setMessages((prev) => [...prev, errorMessage]);
+      speakText("Xin lỗi, tôi gặp sự cố. Vui lòng thử lại!");
     } finally {
       setIsLoading(false);
     }
@@ -306,6 +351,21 @@ Câu hỏi: ${text}`;
               ></i>
             </motion.button>
 
+            <motion.button
+              className={`speaker-btn ${isSpeaking ? "speaking" : ""}`}
+              onClick={stopSpeaking}
+              title={isSpeaking ? "Dừng giọng nói" : "Giọng nói đã tắt"}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              disabled={!isSpeaking}
+            >
+              <i
+                className={`fas ${
+                  isSpeaking ? "fa-volume-up" : "fa-volume-mute"
+                }`}
+              ></i>
+            </motion.button>
+
             <input
               type="text"
               placeholder="Nhập câu hỏi của bạn..."
@@ -333,6 +393,20 @@ Câu hỏi: ${text}`;
             >
               <div className="voice-wave"></div>
               <p>Đang lắng nghe...</p>
+            </motion.div>
+          )}
+
+          {isSpeaking && (
+            <motion.div
+              className="speaking-indicator"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              <div className="speaker-wave"></div>
+              <p>
+                <i className="fas fa-volume-up"></i> Bot đang phản hồi bằng
+                giọng nói...
+              </p>
             </motion.div>
           )}
         </div>
