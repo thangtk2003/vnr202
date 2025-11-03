@@ -158,19 +158,6 @@ const VietnamMap = ({ unified = false }: VietnamMapProps) => {
           </button>
         </motion.div>
       )}
-
-      {/* Âm thanh còi tàu */}
-      {isUnified && (
-        <motion.div
-          className="train-horn-indicator"
-          initial={{ scale: 0 }}
-          animate={{ scale: [0, 1.2, 1] }}
-          transition={{ duration: 0.5 }}
-        >
-          <i className="fas fa-volume-up"></i>
-          <span>Còi tàu hân hoan!</span>
-        </motion.div>
-      )}
     </div>
   );
 };

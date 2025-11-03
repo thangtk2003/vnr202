@@ -1029,6 +1029,524 @@
   color: #4caf50;
 }
 
+/* Image Comparison Slider */
+.image-comparison-slider {
+  margin: 2rem 0;
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.image-comparison-slider .slider-title {
+  text-align: center;
+  color: #2e7d32;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.comparison-slider-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.comparison-slider-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  cursor: ew-resize;
+  user-select: none;
+}
+
+.comparison-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.comparison-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.comparison-image.before-image {
+  z-index: 2;
+  clip-path: inset(0 50% 0 0);
+  transition: clip-path 0.05s ease-out;
+}
+
+.comparison-image.after-image {
+  z-index: 1;
+}
+
+.image-label {
+  position: absolute;
+  top: 20px;
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.before-label {
+  left: 20px;
+  background: rgba(200, 0, 0, 0.85);
+}
+
+.after-label {
+  right: 20px;
+  background: rgba(0, 150, 0, 0.85);
+}
+
+.comparison-slider-control {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.slider-input {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: ew-resize;
+  pointer-events: all;
+  transform: translateY(-50%);
+}
+
+.slider-handle {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  pointer-events: none;
+  transition: left 0.05s ease-out;
+}
+
+.slider-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: white;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.slider-button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: white;
+  border: 4px solid #2e7d32;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  color: #2e7d32;
+  font-size: 1.5rem;
+  cursor: ew-resize;
+  pointer-events: all;
+}
+
+.slider-button:hover {
+  background: #2e7d32;
+  color: white;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.slider-instruction {
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.slider-instruction i {
+  color: #2e7d32;
+  font-size: 1.3rem;
+  animation: pointer-pulse 2s infinite;
+}
+
+@keyframes pointer-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .comparison-slider-container {
+    height: 350px;
+  }
+
+  .image-label {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+
+  .slider-button {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  .slider-instruction {
+    font-size: 1rem;
+  }
+}
+
+/* Rice Productivity Chart - Biểu đồ Năng suất Lúa Gạo */
+.rice-productivity-container {
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  padding: 2rem;
+  border-radius: 15px;
+  margin: 2rem 0;
+}
+
+.rice-productivity-container h4 {
+  color: #1565c0;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.chart-subtitle {
+  text-align: center;
+  color: #555;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+/* Congress Video Section */
+.congress-video-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.congress-video-section h5 {
+  color: #1565c0;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.rice-chart {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 1rem;
+  min-height: 400px;
+}
+
+/* Trục Y */
+.chart-y-axis {
+  grid-row: 1;
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-right: 1rem;
+  border-right: 3px solid #1565c0;
+}
+
+.y-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-weight: bold;
+  color: #1565c0;
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 1rem;
+}
+
+.y-values {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.y-values span {
+  position: relative;
+  text-align: right;
+}
+
+.y-values span::after {
+  content: "";
+  position: absolute;
+  right: -1rem;
+  top: 50%;
+  width: 8px;
+  height: 2px;
+  background: #1565c0;
+}
+
+/* Biểu đồ cột */
+.chart-bars {
+  grid-row: 1;
+  grid-column: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  border-bottom: 3px solid #1565c0;
+  padding: 0 1rem;
+  position: relative;
+}
+
+.bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 150px;
+}
+
+.bar {
+  width: 80px;
+  background: linear-gradient(180deg, #4caf50, #388e3c);
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  min-height: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.bar.before-khoan {
+  background: linear-gradient(180deg, #ff9800, #f57c00);
+}
+
+.bar.after-khoan {
+  background: linear-gradient(180deg, #4caf50, #388e3c);
+}
+
+.bar.growth {
+  background: linear-gradient(180deg, #2196f3, #1565c0);
+  box-shadow: 0 4px 16px rgba(33, 150, 243, 0.4);
+}
+
+.bar-value {
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.bar-label {
+  margin-top: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bar-label strong {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.bar-label span {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Marker Khoán 100 */
+.khoan-100-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0.5;
+  position: relative;
+}
+
+.marker-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  color: #f57c00;
+  font-size: 2rem;
+  animation: marker-glow 2s infinite;
+}
+
+.marker-icon i {
+  filter: drop-shadow(0 0 10px rgba(255, 152, 0, 0.5));
+}
+
+.marker-icon span {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #f57c00;
+  white-space: nowrap;
+}
+
+.marker-icon .year-marker {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+@keyframes marker-glow {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px rgba(255, 152, 0, 0.5));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 20px rgba(255, 152, 0, 0.8));
+  }
+}
+
+/* Trục X */
+.chart-x-axis {
+  grid-row: 2;
+  grid-column: 2;
+  text-align: center;
+  font-weight: bold;
+  color: #1565c0;
+  font-size: 1.1rem;
+  padding-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Kết luận */
+.chart-conclusion {
+  margin-top: 1.5rem;
+}
+
+.conclusion-box {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 5px solid #4caf50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.conclusion-box i {
+  font-size: 2.5rem;
+  color: #4caf50;
+}
+
+.conclusion-box p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.conclusion-box .highlight {
+  color: #4caf50;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .rice-chart {
+    grid-template-columns: 60px 1fr;
+    padding: 1rem;
+    min-height: 350px;
+  }
+
+  .bar {
+    width: 50px;
+  }
+
+  .bar-value {
+    font-size: 1rem;
+  }
+
+  .bar-label {
+    font-size: 0.85rem;
+  }
+
+  .marker-icon {
+    font-size: 1.5rem;
+  }
+
+  .marker-icon span {
+    font-size: 0.75rem;
+  }
+
+  .conclusion-box {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .conclusion-box p {
+    font-size: 1rem;
+  }
+}
+
 /* Inflation Game - Cú Sốc Lạm Phát */
 .inflation-container {
   background: linear-gradient(135deg, #ffebee, #ffcdd2);
@@ -1117,6 +1635,109 @@
   font-size: 1.2rem;
   margin: 0;
   line-height: 1.8;
+}
+
+/* Inflation Historical Images */
+.inflation-images-section {
+  margin-top: 2rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.inflation-images-section h5 {
+  color: #c62828;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.inflation-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.inflation-image-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.inflation-image-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.inflation-image-item img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.inflation-image-item .image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  padding: 1.5rem 1rem 1rem;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+.inflation-image-item .image-overlay p {
+  color: white;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.inflation-note {
+  text-align: center;
+  color: #666;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  font-style: italic;
+  padding: 1rem;
+  background: #fff3e0;
+  border-radius: 10px;
+  border-left: 4px solid #ff6f00;
+  margin: 0;
+}
+
+.inflation-note i {
+  color: #ff6f00;
+  margin: 0 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .inflation-images {
+    grid-template-columns: 1fr;
+  }
+
+  .inflation-image-item img {
+    height: 250px;
+  }
+
+  .inflation-note {
+    font-size: 0.95rem;
+  }
 }
 
 /* Station Navigation */

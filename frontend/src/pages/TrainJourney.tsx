@@ -86,7 +86,7 @@ const stations: Station[] = [
     icon: "fa-seedling",
     content: {
       description:
-        "Mô hình KHH tập trung bộc lộ khuyết điểm. Sản xuất nông nghiệp đình đốn, thiếu lương thực. Chỉ thị 100-CT/TW (Khoán 100) ra đời, 'cởi trói' cho nông dân.",
+        "Mô hình kế hoạch hóa tập trung bộc lộ khuyết điểm. Sản xuất nông nghiệp đình đốn, thiếu lương thực. Chỉ thị 100-CT/TW (Khoán 100) ra đời, 'cởi trói' cho nông dân.",
       facts: [
         "Khoán sản phẩm đến nhóm lao động",
         "Nông dân được hưởng sản phẩm vượt khoán",
@@ -114,6 +114,9 @@ const stations: Station[] = [
       quote:
         "Phải biết lấy hiệu quả kinh tế làm thước đo chính xác nhất cho mọi hoạt động kinh tế",
     },
+    interactive: {
+      type: "riceProductivity",
+    },
   },
   {
     year: "1985",
@@ -129,7 +132,7 @@ const stations: Station[] = [
         "Tiền mất giá nghiêm trọng",
       ],
       quote:
-        "Cú sốc cuối cùng chứng minh mô hình KHH tập trung không còn phù hợp",
+        "Cú sốc cuối cùng chứng minh mô hình kế hoạch hóa tập trung không còn phù hợp",
     },
     interactive: {
       type: "inflation",
@@ -142,7 +145,7 @@ const stations: Station[] = [
     icon: "fa-sun",
     content: {
       description:
-        "Cuộc khủng hoảng 1985 là 'cú sốc' cuối cùng. Thực tiễn bắt buộc Đảng phải đi đến quyết định lịch sử - mở ra CÔNG CUỘC ĐỔI MỚI.",
+        "Cuộc khủng hoảng 1985 là 'cú sốc' cuối cùng, chứng minh mô hình kế hoạch hóa tập trung không còn phù hợp. Thực tiễn bắt buộc Đảng phải đi đến quyết định lịch sử - mở ra CÔNG CUỘC ĐỔI MỚI.",
       facts: [
         "Giai đoạn vừa xây dựng, vừa bảo vệ Tổ quốc",
         "Vừa tìm tòi, thử nghiệm và cả thất bại",
@@ -163,17 +166,20 @@ const TrainJourney = () => {
 
   const startJourney = () => {
     setCurrentStation(0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const nextStation = () => {
     if (currentStation < stations.length - 1) {
       setCurrentStation(currentStation + 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const prevStation = () => {
     if (currentStation > 0) {
       setCurrentStation(currentStation - 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -936,6 +942,77 @@ const TrainJourney = () => {
               <i className="fas fa-exchange-alt"></i> So Sánh Trước/Sau Khoán
               100
             </h4>
+
+            {/* Image Comparison Slider */}
+            <motion.div
+              className="image-comparison-slider"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <h5 className="slider-title">
+                <i className="fas fa-image"></i> Kéo thanh trượt để so sánh
+              </h5>
+              <div className="comparison-slider-wrapper">
+                <div className="comparison-slider-container">
+                  {/* Ảnh Sau (Background) */}
+                  <div className="comparison-image after-image">
+                    <img
+                      src="https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2020/9/23/838651/Kinh-Te-Trung-Uong2.jpg"
+                      alt="Sau Khoán 100 - Nông dân phấn khởi thu hoạch"
+                    />
+                    <div className="image-label after-label">
+                      <i className="fas fa-smile"></i> SAU KHOÁN 100
+                    </div>
+                  </div>
+
+                  {/* Ảnh Trước (Overlay) */}
+                  <div
+                    className="comparison-image before-image"
+                    style={{
+                      clipPath: `inset(0 ${100 - dilemmaSlider}% 0 0)`,
+                    }}
+                  >
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUcj32PwI1PvF4Tn7ZotMQXq8wNclLqf82_wTaXoVsevxVlgrOuC5wt8-_aFM-E3IFliQ&usqp=CAU"
+                      alt="Trước Khoán 100 - Đồng ruộng tập thể vắng vẻ"
+                    />
+                    <div className="image-label before-label">
+                      <i className="fas fa-frown"></i> TRƯỚC KHOÁN 100
+                    </div>
+                  </div>
+
+                  {/* Slider Control */}
+                  <div className="comparison-slider-control">
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={dilemmaSlider}
+                      onChange={(e) =>
+                        setDilemmaSlider(parseInt(e.target.value))
+                      }
+                      className="slider-input"
+                    />
+                    <div
+                      className="slider-handle"
+                      style={{ left: `${dilemmaSlider}%` }}
+                    >
+                      <div className="slider-line"></div>
+                      <div className="slider-button">
+                        <i className="fas fa-arrows-alt-h"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p className="slider-instruction">
+                  <i className="fas fa-hand-pointer"></i> Kéo thanh trượt để
+                  thấy sự thay đổi "thần kỳ" về động lực sản xuất
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Text Comparison */}
             <div className="comparison-toggle">
               <button
                 className={!showComparison ? "active" : ""}
@@ -1012,6 +1089,165 @@ const TrainJourney = () => {
           </motion.div>
         );
 
+      case "riceProductivity":
+        return (
+          <motion.div
+            className="rice-productivity-container"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <h4>
+              <i className="fas fa-chart-line"></i> Năng Suất Lúa Gạo Tăng
+              Trưởng
+            </h4>
+            <p className="chart-subtitle">
+              Nhờ Khoán 100, năng suất lúa gạo bắt đầu đi lên rõ rệt
+            </p>
+
+            {/* Video Đại hội V */}
+            <motion.div
+              className="congress-video-section"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <h5>
+                <i className="fas fa-video"></i> Đại hội lần thứ V của Đảng
+              </h5>
+              <div className="video-container">
+                <div className="video-wrapper">
+                  <iframe
+                    src="https://www.youtube.com/embed/iOTqu_beK2k"
+                    title="Đại hội lần thứ V của Đảng - Từng bước tháo gỡ khó khăn, phát triển kinh tế"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <div className="video-captions">
+                  <div className="caption-item">
+                    <i className="fas fa-calendar-alt"></i>
+                    <span>Đại hội V (tháng 3/1982)</span>
+                  </div>
+                  <div className="caption-item">
+                    <i className="fas fa-eye"></i>
+                    <span>Bước ngoặt "Nhìn thẳng vào sự thật"</span>
+                  </div>
+                  <div className="caption-item">
+                    <i className="fas fa-check-circle"></i>
+                    <span>Khẳng định sự đúng đắn của Khoán 100</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <div className="rice-chart">
+              {/* Trục Y - Năng suất */}
+              <div className="chart-y-axis">
+                <div className="y-label">
+                  <span>Năng suất</span>
+                  <span>(tấn/ha)</span>
+                </div>
+                <div className="y-values">
+                  <span>4.5</span>
+                  <span>4.0</span>
+                  <span>3.5</span>
+                  <span>3.0</span>
+                  <span>2.5</span>
+                  <span>2.0</span>
+                </div>
+              </div>
+
+              {/* Biểu đồ cột */}
+              <div className="chart-bars">
+                {/* Năm 1980 - Trước Khoán 100 */}
+                <div className="bar-group">
+                  <motion.div
+                    className="bar before-khoan"
+                    initial={{ height: 0 }}
+                    animate={{ height: "45%" }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                  >
+                    <div className="bar-value">2.4</div>
+                  </motion.div>
+                  <div className="bar-label">
+                    <strong>1980</strong>
+                    <span>Trước Khoán</span>
+                  </div>
+                </div>
+
+                {/* Mũi tên chỉ điểm chuyển đổi */}
+                <div className="khoan-100-marker">
+                  <motion.div
+                    className="marker-icon"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 1, type: "spring", stiffness: 200 }}
+                  >
+                    <i className="fas fa-star"></i>
+                    <span>Khoán 100</span>
+                    <span className="year-marker">1981</span>
+                  </motion.div>
+                </div>
+
+                {/* Năm 1982 - Sau Khoán 100 */}
+                <div className="bar-group">
+                  <motion.div
+                    className="bar after-khoan"
+                    initial={{ height: 0 }}
+                    animate={{ height: "65%" }}
+                    transition={{ duration: 0.8, delay: 1.2 }}
+                  >
+                    <div className="bar-value">3.3</div>
+                  </motion.div>
+                  <div className="bar-label">
+                    <strong>1982</strong>
+                    <span>Sau Khoán</span>
+                  </div>
+                </div>
+
+                {/* Năm 1985 - Tiếp tục tăng */}
+                <div className="bar-group">
+                  <motion.div
+                    className="bar after-khoan growth"
+                    initial={{ height: 0 }}
+                    animate={{ height: "85%" }}
+                    transition={{ duration: 0.8, delay: 1.5 }}
+                  >
+                    <div className="bar-value">4.2</div>
+                  </motion.div>
+                  <div className="bar-label">
+                    <strong>1985</strong>
+                    <span>Tăng trưởng</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Trục X */}
+              <div className="chart-x-axis">
+                <i className="fas fa-calendar-alt"></i> Năm
+              </div>
+            </div>
+
+            <div className="chart-conclusion">
+              <motion.div
+                className="conclusion-box"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.8 }}
+              >
+                <i className="fas fa-arrow-up"></i>
+                <p>
+                  <strong>Kết quả:</strong> Năng suất lúa gạo tăng{" "}
+                  <span className="highlight">+75%</span> sau 5 năm thực hiện
+                  Khoán 100, chứng minh sự đúng đắn của chính sách!
+                </p>
+              </motion.div>
+            </div>
+          </motion.div>
+        );
+
       case "inflation":
         return (
           <motion.div
@@ -1055,6 +1291,50 @@ const TrainJourney = () => {
                 </motion.div>
               )}
             </div>
+
+            {/* Historical Images */}
+            <motion.div
+              className="inflation-images-section"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+            >
+              <h5>
+                <i className="fas fa-images"></i> Hình Ảnh Lịch Sử
+              </h5>
+              <div className="inflation-images">
+                <div className="inflation-image-item">
+                  <img
+                    src="https://i1-kinhdoanh.vnecdn.net/2016/12/15/doi-tien-0-2182-1481774665.jpg?w=680&h=0&q=100&dpr=1&fit=crop&s=tLxmhU4KtMIAoBWx8sCwEA"
+                    alt="Người dân xếp hàng dài đi đổi tiền"
+                  />
+                  <div className="image-overlay">
+                    <p>
+                      <i className="fas fa-users"></i> Người dân xếp hàng dài đi
+                      đổi tiền
+                    </p>
+                  </div>
+                </div>
+                <div className="inflation-image-item">
+                  <img
+                    src="https://vcdn1-kinhdoanh.vnecdn.net/2016/12/15/mua-hang-thoi-bao-cap-0-9267-1481774665.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=OEYD790QfTOuhTUYyYw_yw"
+                    alt="Những tờ tiền mệnh giá lớn mất giá"
+                  />
+                  <div className="image-overlay">
+                    <p>
+                      <i className="fas fa-money-bill-wave"></i> Những tờ tiền
+                      mệnh giá lớn mất giá
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <p className="inflation-note">
+                <i className="fas fa-quote-left"></i> Cải cách Giá-Lương-Tiền
+                (1985) gây ra lạm phát phi mã, làm đảo lộn đời sống người dân.
+                Đây là bài học đắt giá về việc cải cách kinh tế không đúng hướng
+                <i className="fas fa-quote-right"></i>
+              </p>
+            </motion.div>
           </motion.div>
         );
 
