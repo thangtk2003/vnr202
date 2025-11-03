@@ -115,6 +115,8 @@ assignment/
 
 ### 2. Cấu Hình Gemini API Key
 
+**⚠️ QUAN TRỌNG**: API Key được lưu trong file `.env` (không commit lên Git)
+
 #### Lấy API Key:
 
 1. Truy cập: https://makersuite.google.com/app/apikey
@@ -122,12 +124,38 @@ assignment/
 3. Tạo API key mới
 4. Copy API key
 
-#### Nhập API Key vào Website:
+#### Cấu hình cho Quiz (Frontend):
 
-1. Cuộn xuống phần **Quiz** hoặc **Chatbot**
-2. Nhập API key vào ô input
-3. Nhấn nút **Lưu**
-4. API key sẽ được lưu trong Local Storage
+1. Trong thư mục `frontend/`, tạo file `.env`:
+
+   ```bash
+   # Windows PowerShell
+   New-Item -Path frontend/.env -ItemType File
+
+   # Linux/Mac
+   touch frontend/.env
+   ```
+
+2. Thêm API key vào file `.env`:
+
+   ```
+   VITE_GEMINI_API_KEY=your_actual_api_key_here
+   ```
+
+3. **Khởi động lại dev server**:
+
+   ```bash
+   cd frontend
+   npm run dev
+   ```
+
+4. Xem hướng dẫn chi tiết: `frontend/QUIZ_SETUP.md`
+
+#### Cấu hình cho Chatbot:
+
+- Chatbot yêu cầu nhập API key trực tiếp trong giao diện
+- API key được lưu trong Local Storage (client-side)
+- Click vào nút **Cài Đặt API** để nhập key
 
 ### 3. Sử Dụng Từng Tính Năng
 
@@ -287,10 +315,36 @@ Trả lời câu hỏi:
 
 ## 🔒 Bảo Mật
 
-- API Key được lưu trong Local Storage (client-side only)
-- Không upload API key lên server
+- API Key được lưu trong `.env` (Quiz) và Local Storage (Chatbot)
+- File `.env` không được commit lên Git
+- Environment variables được set trên Vercel
 - User tự quản lý API key của mình
 - Khuyến nghị: Giới hạn API key usage trên Google Cloud Console
+
+## 🚀 Deployment
+
+### Deploy lên Vercel
+
+```bash
+# Quick deploy
+vercel
+
+# Production deploy
+vercel --prod
+```
+
+**Xem hướng dẫn chi tiết:**
+- 📘 Đầy đủ: [`DEPLOYMENT.md`](./DEPLOYMENT.md)
+- ⚡ Nhanh: [`DEPLOY_QUICK.md`](./DEPLOY_QUICK.md)
+
+**Live Demo**: `https://vnr202.vercel.app` (sau khi deploy)
+
+### Environment Variables trên Vercel
+
+1. Vercel Dashboard → Settings → Environment Variables
+2. Add: `VITE_GEMINI_API_KEY` = `your_api_key`
+3. Apply to: Production, Preview, Development
+4. Redeploy
 
 ## 📄 License
 

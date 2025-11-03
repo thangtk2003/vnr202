@@ -14,6 +14,33 @@ interface Message {
   sender: "user" | "bot";
 }
 
+// Speech Recognition types
+interface SpeechRecognitionEvent {
+  results: {
+    [index: number]: {
+      [index: number]: {
+        transcript: string;
+      };
+    };
+  };
+}
+
+interface SpeechRecognitionErrorEvent {
+  error: string;
+}
+
+interface SpeechRecognitionInterface {
+  lang: string;
+  continuous: boolean;
+  interimResults: boolean;
+  start: () => void;
+  stop: () => void;
+  onstart: (() => void) | null;
+  onresult: ((event: SpeechRecognitionEvent) => void) | null;
+  onerror: ((event: SpeechRecognitionErrorEvent) => void) | null;
+  onend: (() => void) | null;
+}
+
 const Chatbot: React.FC<ChatbotProps> = ({ apiKey, onSaveApiKey }) => {
   const [showApiSetup, setShowApiSetup] = useState(!apiKey);
   const [apiKeyInput, setApiKeyInput] = useState("");
@@ -29,7 +56,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ apiKey, onSaveApiKey }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognitionInterface | null>(null);
 
   useEffect(() => {
     scrollToBottom();
@@ -83,7 +110,7 @@ Câu hỏi: ${text}`;
 
     try {
       const response = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
         {
           contents: [{ parts: [{ text: prompt }] }],
         }
@@ -121,8 +148,16 @@ Câu hỏi: ${text}`;
     }
 
     const SpeechRecognition =
-      (window as any).SpeechRecognition ||
-      (window as any).webkitSpeechRecognition;
+      (window as Window & typeof globalThis & { 
+        SpeechRecognition?: new () => SpeechRecognitionInterface;
+        webkitSpeechRecognition?: new () => SpeechRecognitionInterface;
+      }).SpeechRecognition ||
+      (window as Window & typeof globalThis & { 
+        webkitSpeechRecognition?: new () => SpeechRecognitionInterface;
+      }).webkitSpeechRecognition;
+    
+    if (!SpeechRecognition) return;
+    
     recognitionRef.current = new SpeechRecognition();
 
     recognitionRef.current.lang = "vi-VN";
@@ -133,7 +168,7 @@ Câu hỏi: ${text}`;
       setIsListening(true);
     };
 
-    recognitionRef.current.onresult = (event: any) => {
+    recognitionRef.current.onresult = (event: SpeechRecognitionEvent) => {
       const transcript = event.results[0][0].transcript;
       setInputText(transcript);
       setIsListening(false);
