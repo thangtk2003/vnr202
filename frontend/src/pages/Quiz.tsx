@@ -3,11 +3,6 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import "./Quiz.css";
 
-interface QuizProps {
-  apiKey: string;
-  onSaveApiKey: (key: string) => void;
-}
-
 interface Question {
   question: string;
   options: string[];
@@ -19,25 +14,14 @@ interface QuizData {
   questions: Question[];
 }
 
-const Quiz: React.FC<QuizProps> = ({ apiKey, onSaveApiKey }) => {
-  const [showApiSetup, setShowApiSetup] = useState(!apiKey);
-  const [apiKeyInput, setApiKeyInput] = useState("");
+const Quiz: React.FC = () => {
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   const [quizData, setQuizData] = useState<QuizData | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleSaveApiKey = () => {
-    if (!apiKeyInput.trim()) {
-      alert("Vui lòng nhập API key!");
-      return;
-    }
-    onSaveApiKey(apiKeyInput);
-    setShowApiSetup(false);
-    alert("✓ API key đã được lưu thành công!");
-  };
 
   const generateQuiz = async () => {
     if (!apiKey) {
@@ -74,7 +58,7 @@ Trả về CHÍNH XÁC format JSON sau (không thêm markdown, không thêm gi�
 
     try {
       const response = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
         {
           contents: [{ parts: [{ text: prompt }] }],
         }
@@ -152,7 +136,8 @@ Trả về CHÍNH XÁC format JSON sau (không thêm markdown, không thêm gi�
     return "💪 Cố gắng thêm nhé! Hãy đọc lại nội dung và thử lại!";
   };
 
-  if (showApiSetup) {
+  // Kiểm tra API key
+  if (!apiKey || apiKey === "your_gemini_api_key_here") {
     return (
       <section className="quiz-section">
         <div className="container">
@@ -161,35 +146,40 @@ Trả về CHÍNH XÁC format JSON sau (không thêm markdown, không thêm gi�
             animate={{ opacity: 1, y: 0 }}
           >
             <h2 className="section-title">Kiểm Tra Kiến Thức</h2>
-            <p className="section-subtitle">Quiz được tạo bởi Gemini AI</p>
+            <p className="section-subtitle">Quiz được tạo bởi Gemini AI dựa trên thông tin được cung cấp</p>
           </motion.div>
 
           <div className="quiz-container">
             <div className="api-key-setup">
-              <h3>Cấu Hình Gemini API</h3>
-              <p>Vui lòng nhập API key của bạn để sử dụng tính năng Quiz</p>
-              <div className="input-group">
-                <input
-                  type="password"
-                  placeholder="Nhập Gemini API Key..."
-                  value={apiKeyInput}
-                  onChange={(e) => setApiKeyInput(e.target.value)}
-                />
-                <button onClick={handleSaveApiKey} className="btn-primary">
-                  <i className="fas fa-save"></i> Lưu
-                </button>
-              </div>
-              <p className="help-text">
-                <i className="fas fa-info-circle"></i>
-                Lấy API key tại:{" "}
-                <a
-                  href="https://makersuite.google.com/app/apikey"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Google AI Studio
-                </a>
+              <h3>⚠️ Chưa Cấu Hình API Key</h3>
+              <p>
+                Vui lòng cấu hình Gemini API Key trong file <code>.env</code>
               </p>
+              <div className="help-text">
+                <i className="fas fa-info-circle"></i>
+                <strong>Hướng dẫn:</strong>
+                <ol>
+                  <li>
+                    Lấy API key tại:{" "}
+                    <a
+                      href="https://makersuite.google.com/app/apikey"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Google AI Studio
+                    </a>
+                  </li>
+                  <li>
+                    Tạo file <code>.env</code> trong thư mục{" "}
+                    <code>frontend/</code>
+                  </li>
+                  <li>
+                    Thêm dòng:{" "}
+                    <code>VITE_GEMINI_API_KEY=your_api_key_here</code>
+                  </li>
+                  <li>Khởi động lại dev server</li>
+                </ol>
+              </div>
             </div>
           </div>
         </div>

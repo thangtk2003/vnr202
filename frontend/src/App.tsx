@@ -32,12 +32,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/train" element={<TrainJourney />} />
-            <Route
-              path="/quiz"
-              element={
-                <Quiz apiKey={geminiApiKey} onSaveApiKey={handleSaveApiKey} />
-              }
-            />
+            <Route path="/quiz" element={<Quiz />} />
             <Route
               path="/chatbot"
               element={
