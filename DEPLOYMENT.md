@@ -91,6 +91,7 @@ assignment/
 ├── frontend/
 │   ├── .env                # ❌ KHÔNG commit (local only)
 │   ├── .env.example        # ✅ Template
+│   ├── .npmrc              # ✅ NPM config (legacy-peer-deps)
 │   ├── package.json        # ✅ Dependencies
 │   ├── vite.config.ts      # ✅ Vite config
 │   └── dist/               # Build output (tự động)
@@ -101,31 +102,26 @@ assignment/
 
 ```json
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/frontend/$1"
-    }
-  ]
+  "buildCommand": "cd frontend && npm install --legacy-peer-deps && npm run build",
+  "outputDirectory": "frontend/dist",
+  "installCommand": "cd frontend && npm install --legacy-peer-deps"
 }
 ```
 
-- `builds`: Chỉ định cách build project
-- `routes`: Routing configuration
-- `distDir`: Output directory (dist)
+**Giải thích:**
+- `buildCommand`: Lệnh build project (thêm `--legacy-peer-deps` để fix peer dependencies)
+- `outputDirectory`: Thư mục chứa build output
+- `installCommand`: Lệnh install dependencies
+
+## 📝 File .npmrc
+
+File `.npmrc` trong thư mục `frontend/` để tự động dùng `--legacy-peer-deps`:
+
+```
+legacy-peer-deps=true
+```
+
+**Lý do**: `react-simple-maps@3.0.0` chưa hỗ trợ React 19, cần flag này để install.
 
 ## 🎯 Sau Khi Deploy
 
