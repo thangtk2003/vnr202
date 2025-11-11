@@ -191,9 +191,9 @@ const TrainJourney = () => {
     if (inflationValue < 775) {
       const interval = setInterval(() => {
         setInflationValue((prev) => {
-          if (prev >= 774) {
+          if (prev >= 77.47) {
             clearInterval(interval);
-            return 774;
+            return 77.47;
           }
           return prev + 50;
         });
@@ -1276,7 +1276,7 @@ const TrainJourney = () => {
               <button className="inflation-btn" onClick={handleInflationClick}>
                 <i className="fas fa-forward"></i> SAU CẢI CÁCH GIÁ
               </button>
-              {inflationValue >= 774 && (
+              {inflationValue >= 77.47 && (
                 <motion.div
                   className="inflation-alert"
                   initial={{ opacity: 0, scale: 0.5 }}
