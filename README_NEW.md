@@ -1,4 +1,4 @@
-# Chuyến Tàu Lịch Sử - VNR202 Assignment
+# Chuyến Tàu Ký Ức - VNR202 Assignment
 
 > Website học tập tương tác về lịch sử Việt Nam giai đoạn 1975-1986 với React + TypeScript + Django
 

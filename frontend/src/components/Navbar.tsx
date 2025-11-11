@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className="container">
         <Link to="/" className="nav-brand">
           <i className="fas fa-train"></i>
-          <span>Chuyến Tàu Lịch Sử</span>
+          <span>Chuyến Tàu Ký Ức</span>
         </Link>
 
         <ul className={`nav-menu ${isOpen ? "active" : ""}`}>
